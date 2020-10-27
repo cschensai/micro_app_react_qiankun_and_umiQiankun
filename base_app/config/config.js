@@ -44,6 +44,7 @@ export default defineConfig({
           component: '../layouts/BasicLayout',
           authority: ['admin', 'user'],
           routes: [
+            { path: '/microApp', name: 'sub' },
             {
               path: '/',
               redirect: '/welcome',
@@ -102,4 +103,15 @@ export default defineConfig({
   manifest: {
     basePath: '/',
   },
+  // qiankun
+  qiankun: {
+    master: {
+      apps: [
+        {
+          name: 'app1',
+          entry: '//localhost:7100',
+        }
+      ]
+    }
+  }
 });

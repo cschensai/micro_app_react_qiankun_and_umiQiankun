@@ -103,6 +103,8 @@ const BasicLayout = (props) => {
   const { formatMessage } = useIntl();
   return (
     <ProLayout
+    // 隐藏左侧菜单
+      hide
       logo={logo}
       formatMessage={formatMessage}
       onCollapse={handleMenuCollapse}
@@ -133,7 +135,7 @@ const BasicLayout = (props) => {
       }}
       footerRender={() => defaultFooterDom}
       menuDataRender={menuDataRender}
-      rightContentRender={() => <RightContent />}
+      // rightContentRender={() => <RightContent />}
       postMenuData={(menuData) => {
         menuDataRef.current = menuData || [];
         return menuData || [];

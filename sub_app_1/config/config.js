@@ -4,6 +4,7 @@ import defaultSettings from './defaultSettings';
 import proxy from './proxy';
 const { REACT_APP_ENV } = process.env;
 export default defineConfig({
+  base: '/microApp',
   hash: true,
   antd: {},
   dva: {
@@ -50,28 +51,12 @@ export default defineConfig({
             },
             {
               path: '/welcome',
-              name: 'welcome',
+              name: '欢迎',
               icon: 'smile',
               component: './Welcome',
             },
             {
-              path: '/admin',
-              name: 'admin',
-              icon: 'crown',
-              component: './Admin',
-              authority: ['admin'],
-              routes: [
-                {
-                  path: '/admin/sub-page',
-                  name: 'sub-page',
-                  icon: 'smile',
-                  component: './Welcome',
-                  authority: ['admin'],
-                },
-              ],
-            },
-            {
-              name: 'list.table-list',
+              name: '列表',
               icon: 'table',
               path: '/list',
               component: './ListTableList',
@@ -102,4 +87,8 @@ export default defineConfig({
   manifest: {
     basePath: '/',
   },
+  // qiankun
+  qiankun: {
+    slave: {}
+  }
 });

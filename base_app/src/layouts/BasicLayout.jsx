@@ -5,7 +5,7 @@
  */
 import ProLayout, { DefaultFooter } from '@ant-design/pro-layout';
 import React, { useEffect, useMemo, useRef } from 'react';
-import { Link, useIntl, connect, history } from 'umi';
+import { Link, useIntl, connect, history, MicroApp } from 'umi';
 import { GithubOutlined } from '@ant-design/icons';
 import { Result, Button } from 'antd';
 import Authorized from '@/utils/Authorized';
@@ -142,7 +142,9 @@ const BasicLayout = (props) => {
       {...settings}
     >
       <Authorized authority={authorized.authority} noMatch={noMatch}>
-        {children}
+        {
+          location.pathname.includes('/microApp') ? <MicroApp name="app1" /> : children
+        }
       </Authorized>
     </ProLayout>
   );
