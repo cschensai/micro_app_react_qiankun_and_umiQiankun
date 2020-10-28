@@ -4,7 +4,8 @@ import defaultSettings from './defaultSettings';
 import proxy from './proxy';
 const { REACT_APP_ENV } = process.env;
 export default defineConfig({
-  base: '/microApp',
+  base: '/microApp1',
+
   hash: true,
   antd: {},
   dva: {

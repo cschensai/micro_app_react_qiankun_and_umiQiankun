@@ -103,6 +103,7 @@ const BasicLayout = (props) => {
   const { formatMessage } = useIntl();
   return (
     <ProLayout
+      hide
       logo={logo}
       formatMessage={formatMessage}
       onCollapse={handleMenuCollapse}
@@ -131,7 +132,7 @@ const BasicLayout = (props) => {
           <span>{route.breadcrumbName}</span>
         );
       }}
-      footerRender={() => defaultFooterDom}
+      // footerRender={() => defaultFooterDom}
       menuDataRender={menuDataRender}
       rightContentRender={() => <RightContent />}
       postMenuData={(menuData) => {

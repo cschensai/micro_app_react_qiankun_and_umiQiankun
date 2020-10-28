@@ -4,6 +4,8 @@ import defaultSettings from './defaultSettings';
 import proxy from './proxy';
 const { REACT_APP_ENV } = process.env;
 export default defineConfig({
+  base: '/microApp2',
+
   hash: true,
   antd: {},
   dva: {
@@ -102,4 +104,8 @@ export default defineConfig({
   manifest: {
     basePath: '/',
   },
+  // qiankun
+  qiankun: {
+    slave: {}
+  }
 });

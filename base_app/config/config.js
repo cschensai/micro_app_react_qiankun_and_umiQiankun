@@ -23,74 +23,75 @@ export default defineConfig({
     ie: 11,
   },
   // umi routes: https://umijs.org/docs/routing
-  routes: [
-    {
-      path: '/user',
-      component: '../layouts/UserLayout',
-      routes: [
-        {
-          name: 'login',
-          path: '/user/login',
-          component: './user/login',
-        },
-      ],
-    },
-    {
-      path: '/',
-      component: '../layouts/SecurityLayout',
-      routes: [
-        {
-          path: '/',
-          component: '../layouts/BasicLayout',
-          authority: ['admin', 'user'],
-          routes: [
-            { path: '/microApp', name: 'sub' },
-            {
-              path: '/',
-              redirect: '/welcome',
-            },
-            {
-              path: '/welcome',
-              name: 'welcome',
-              icon: 'smile',
-              component: './Welcome',
-            },
-            {
-              path: '/admin',
-              name: 'admin',
-              icon: 'crown',
-              component: './Admin',
-              authority: ['admin'],
-              routes: [
-                {
-                  path: '/admin/sub-page',
-                  name: 'sub-page',
-                  icon: 'smile',
-                  component: './Welcome',
-                  authority: ['admin'],
-                },
-              ],
-            },
-            {
-              name: 'list.table-list',
-              icon: 'table',
-              path: '/list',
-              component: './ListTableList',
-            },
-            {
-              component: './404',
-            },
-          ],
-        },
-        {
-          component: './404',
-        },
-      ],
-    },
-    {
-      component: './404',
-    },
-  ],
+  // routes: [
+  //   {
+  //     path: '/user',
+  //     component: '../layouts/UserLayout',
+  //     routes: [
+  //       {
+  //         name: 'login',
+  //         path: '/user/login',
+  //         component: './user/login',
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     path: '/',
+  //     component: '../layouts/SecurityLayout',
+  //     routes: [
+  //       {
+  //         path: '/',
+  //         component: '../layouts/BasicLayout',
+  //         authority: ['admin', 'user'],
+  //         routes: [
+  //           {
+  //             path: '/',
+  //             redirect: '/welcome',
+  //           },
+  //           {
+  //             path: '/welcome',
+  //             name: 'welcome',
+  //             icon: 'smile',
+  //             component: './Welcome',
+  //           },
+  //           {
+  //             path: '/admin',
+  //             name: 'admin',
+  //             icon: 'crown',
+  //             component: './Admin',
+  //             authority: ['admin'],
+  //             routes: [
+  //               {
+  //                 path: '/admin/sub-page',
+  //                 name: 'sub-page',
+  //                 icon: 'smile',
+  //                 component: './Welcome',
+  //                 authority: ['admin'],
+  //               },
+  //             ],
+  //           },
+  //           {
+  //             name: 'list.table-list',
+  //             icon: 'table',
+  //             path: '/list',
+  //             component: './ListTableList',
+  //           },
+  //           { path: '/microApp1', name: 'sub1' },
+  //           { path: '/microApp2', name: 'sub2' },
+  //           {
+  //             component: './404',
+  //           },
+  //         ],
+  //       },
+  //       {
+  //         component: './404',
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     component: './404',
+  //   },
+  // ],
   // Theme for antd: https://ant.design/docs/react/customize-theme-cn
   theme: {
     // ...darkTheme,
@@ -104,14 +105,20 @@ export default defineConfig({
     basePath: '/',
   },
   // qiankun
-  qiankun: {
-    master: {
-      apps: [
-        {
-          name: 'app1',
-          entry: '//localhost:7100',
-        }
-      ]
-    }
-  }
+  // qiankun: {
+  //   master: {
+  //     apps: [ // 子应用配置
+  //       {
+  //         name: 'app1',
+  //         entry: '//localhost:7100',
+  //       },
+  //       {
+  //         name: 'app2',
+  //         entry: '//localhost:7200',
+  //       }
+  //     ],
+  //     sandbox: true, // 是否使用沙箱机制
+  //     prefecth: true,
+  //   }
+  // }
 });

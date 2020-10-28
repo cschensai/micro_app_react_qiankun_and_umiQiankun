@@ -28,14 +28,21 @@ const noMatch = (
 /**
  * use Authorized check all menu item
  */
-const menuDataRender = (menuList) =>
-  menuList.map((item) => {
-    const localItem = {
-      ...item,
-      children: item.children ? menuDataRender(item.children) : undefined,
-    };
-    return Authorized.check(item.authority, localItem, null);
-  });
+// const menuDataRender = (menuList) =>
+//   menuList.map((item) => {
+//     const localItem = {
+//       ...item,
+//       children: item.children ? menuDataRender(item.children) : undefined,
+//     };
+//     return Authorized.check(item.authority, localItem, null);
+//   });
+
+const menuDataRender = () =>{
+  return [
+    { path: '/microApp1', name: 'sub1' },
+    { path: '/microApp2', name: 'sub2' },
+  ]
+}
 
 const defaultFooterDom = (
   <DefaultFooter
@@ -71,6 +78,7 @@ const BasicLayout = (props) => {
     location = {
       pathname: '/',
     },
+    currentUser,
   } = props;
   const menuDataRef = useRef([]);
   useEffect(() => {
@@ -101,6 +109,14 @@ const BasicLayout = (props) => {
     [location.pathname],
   );
   const { formatMessage } = useIntl();
+  // 渲染
+  const renderChidlren = () => {
+    if (location.pathname.includes('/microApp1') || location.pathname.includes('/microApp2')) {
+      const name = location.pathname.includes('/microApp1') ? 'app1' : 'app2';
+      return <MicroApp name={name} key={name} userInfo={currentUser} />
+    }
+    return children;
+  }
   return (
     <ProLayout
       logo={logo}
@@ -131,7 +147,7 @@ const BasicLayout = (props) => {
           <span>{route.breadcrumbName}</span>
         );
       }}
-      footerRender={() => defaultFooterDom}
+      // footerRender={() => defaultFooterDom}
       menuDataRender={menuDataRender}
       rightContentRender={() => <RightContent />}
       postMenuData={(menuData) => {
@@ -142,15 +158,15 @@ const BasicLayout = (props) => {
       {...settings}
     >
       <Authorized authority={authorized.authority} noMatch={noMatch}>
-        {
-          location.pathname.includes('/microApp') ? <MicroApp name="app1" /> : children
-        }
+        {/* {renderChidlren()} */}
+        {children}
       </Authorized>
     </ProLayout>
   );
 };
 
-export default connect(({ global, settings }) => ({
+export default connect(({ global, settings, user }) => ({
   collapsed: global.collapsed,
   settings,
+  currentUser: user.currentUser,
 }))(BasicLayout);
