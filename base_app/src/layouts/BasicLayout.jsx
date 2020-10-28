@@ -5,7 +5,7 @@
  */
 import ProLayout, { DefaultFooter } from '@ant-design/pro-layout';
 import React, { useEffect, useMemo, useRef } from 'react';
-import { Link, useIntl, connect, history, MicroApp } from 'umi';
+import { Link, useIntl, connect, history } from 'umi';
 import { GithubOutlined } from '@ant-design/icons';
 import { Result, Button } from 'antd';
 import Authorized from '@/utils/Authorized';
@@ -109,14 +109,6 @@ const BasicLayout = (props) => {
     [location.pathname],
   );
   const { formatMessage } = useIntl();
-  // 渲染
-  const renderChidlren = () => {
-    if (location.pathname.includes('/microApp1') || location.pathname.includes('/microApp2')) {
-      const name = location.pathname.includes('/microApp1') ? 'app1' : 'app2';
-      return <MicroApp name={name} key={name} userInfo={currentUser} />
-    }
-    return children;
-  }
   return (
     <ProLayout
       logo={logo}
