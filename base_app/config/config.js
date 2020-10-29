@@ -105,20 +105,24 @@ export default defineConfig({
     basePath: '/',
   },
   // qiankun
-  // qiankun: {
-  //   master: {
-  //     apps: [ // 子应用配置
-  //       {
-  //         name: 'app1',
-  //         entry: '//localhost:7100',
-  //       },
-  //       {
-  //         name: 'app2',
-  //         entry: '//localhost:7200',
-  //       }
-  //     ],
-  //     sandbox: true, // 是否使用沙箱机制
-  //     prefecth: true,
-  //   }
-  // }
+  qiankun: {
+    master: {
+      apps: [ // 子应用配置
+        {
+          name: 'app1',
+          entry: '//localhost:7100',
+          base: '/microApp1', // app1 的路由前缀，通过这个前缀判断是否要启动该应用，通常跟子应用的 base 保持一致
+          history: 'browser', // 子应用的 history 配置，默认为当前主应用 history 配置
+        },
+        {
+          name: 'app2',
+          entry: '//localhost:7200',
+          base: '/microApp2', // app1 的路由前缀，通过这个前缀判断是否要启动该应用，通常跟子应用的 base 保持一致
+          history: 'browser', // 子应用的 history 配置，默认为当前主应用 history 配置
+        }
+      ],
+      jsSandbox: true, // 是否使用沙箱机制
+      prefecth: false, // 是否使用预加载
+    }
+  }
 });

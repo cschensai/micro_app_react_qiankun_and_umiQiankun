@@ -5,13 +5,12 @@
  */
 import ProLayout, { DefaultFooter } from '@ant-design/pro-layout';
 import React, { useEffect, useMemo, useRef } from 'react';
-import { Link, useIntl, connect, history } from 'umi';
+import { Link, useIntl, connect, history, MicroApp } from 'umi';
 import { GithubOutlined } from '@ant-design/icons';
 import { Result, Button } from 'antd';
 import Authorized from '@/utils/Authorized';
 import RightContent from '@/components/GlobalHeader/RightContent';
 import { getMatchMenu } from '@umijs/route-utils';
-import { registerMicroApps, start } from 'qiankun';
 import logo from '../assets/logo.svg';
 const noMatch = (
   <Result
@@ -41,7 +40,7 @@ const noMatch = (
 const menuDataRender = () =>{
   return [
     { path: '/welcome', name: 'main' },
-    { path: '/microApp1', name: 'sub1' },
+    { path: '/microApp1', name: 'sub1'},
     { path: '/microApp2', name: 'sub2' },
   ]
 }
@@ -90,23 +89,6 @@ const BasicLayout = (props) => {
       })
     }
   }, []);
-  useEffect(() => {
-    if (currentUser.userid) {
-      // 注册微应用
-      registerMicroApps([{
-        name: 'app1', entry: '//localhost:7100', container: '#sub1box', activeRule: '/microApp1', props: { userInfo: currentUser } },
-        { name: 'app2', entry: '//localhost:7200', container: '#sub2box', activeRule: '/microApp2', props: { userInfo: currentUser } }], {
-          beforeMount: app => {
-            console.log('app3', app);
-          }
-        })
-        start({
-          // prefetch: false,
-        });
-    }
-    // TODO: 登录过期处理
-  }, [currentUser])
-
   const handleMenuCollapse = (payload) => {
     if (dispatch) {
       dispatch({
@@ -124,6 +106,15 @@ const BasicLayout = (props) => {
     [location.pathname],
   );
   const { formatMessage } = useIntl();
+  const renderChildren = () => {
+    if (window.location.pathname.includes('microApp1')) {
+      return <MicroApp name="app1" key="app1" userInfo={currentUser}></MicroApp>
+    }
+    if (window.location.pathname.includes('microApp2')) {
+      return <MicroApp name="app2" key="app2"></MicroApp>
+    }
+    return children;
+  }
   return (
     <ProLayout
       logo={logo}
@@ -165,9 +156,7 @@ const BasicLayout = (props) => {
       {...settings}
     >
       <Authorized authority={authorized.authority} noMatch={noMatch}>
-        {children}
-        <div id="sub1box"></div>
-        <div id="sub2box"></div>
+        {renderChildren()}
       </Authorized>
     </ProLayout>
   );
