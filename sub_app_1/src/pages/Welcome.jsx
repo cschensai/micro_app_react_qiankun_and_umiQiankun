@@ -15,13 +15,14 @@ const CodePreview = ({ children }) => (
 
 export default () => {
   const masterProps = useModel('@@qiankunStateFromMaster');
+  console.log(2222, masterProps);
   const { userInfo = {} } = masterProps || {};
   return (
     <PageContainer>
       <Card>
          我是sub1
          <hr/>
-         <h4>父级信息</h4>
+         <h4>父级信666息</h4>
          name: { userInfo.name }
          <br/>
          头像：<img width={80} src={userInfo.avatar} />
