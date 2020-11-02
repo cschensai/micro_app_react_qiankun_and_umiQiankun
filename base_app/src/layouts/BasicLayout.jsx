@@ -94,15 +94,34 @@ const BasicLayout = (props) => {
     if (currentUser.userid) {
       // 注册微应用
       registerMicroApps([{
-        name: 'app1', entry: '//localhost:7100', container: '#sub1box', activeRule: '/microApp1', props: { userInfo: currentUser } },
-        { name: 'app2', entry: '//localhost:7200', container: '#sub2box', activeRule: '/microApp2', props: { userInfo: currentUser } }], {
-          beforeMount: app => {
-            console.log('app3', app);
-          }
-        })
-        start({
-          // prefetch: false,
-        });
+        name: 'app1',
+        entry: '//localhost:7100',
+        container: '#sub1box',
+        activeRule: '/microApp1',
+        props: {
+          userInfo: currentUser
+        },
+      }, {
+        name: 'app2',
+        entry: '//localhost:7200',
+        container: '#sub2box',
+        activeRule: '/microApp2',
+        props: {
+          userInfo: currentUser,
+        },
+      }], {
+        beforeMount: app => {
+          console.log('app3', app);
+        },
+      });
+
+      // 开启加载子应用
+      start({
+        // 是否预加载
+        prefetch: true,
+        // 是否开启沙箱模式
+        sandbox: true,
+      });
     }
     // TODO: 登录过期处理
   }, [currentUser])

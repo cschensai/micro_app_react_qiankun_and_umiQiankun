@@ -1,3 +1,5 @@
+import ReactDOM from 'react-dom';
+
 export const qiankun = {
   // 应用加载之前
   async bootstrap(props) {
@@ -10,5 +12,7 @@ export const qiankun = {
   // 应用卸载之后触发
   async unmount(props) {
     console.log('app1 unmount2', props);
+    ReactDOM.unmountComponentAtNode(document.querySelector('#root-slave'));
+
   },
 };
